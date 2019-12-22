@@ -1,0 +1,25 @@
+Binary Information :
+
+FileName         : rev.exe
+ARCH             : I386
+DotNET           : False
+ASLR             : False
+DEP              : False
+Authenticode     : False
+StrongNaming     : N/A
+SafeSEH          : True
+ControlFlowGuard : False
+HighentropyVA    : False
+
+
+Solution:
+
+1; Patch on address "00402861" jne rev.402868 to je rev.402868 so binary will ask for username and key.
+2; Set bp over GetSystemTime and press f8 to see key forming in eax. Remember, key will stay valid for an hour, else you got to get another key.
+3; Patch, save the binary and re-open in debugger and enter correct username and key attained in previous steps. 
+4; Patch on address "00401DF4" jne rev.4023EB to je rev.4023EB. so the execution flow can divert to WriteProcessMemory.
+5; set breakpoint on WriteProcessMemory and keep check on 3rd parameter for flag.
+
+flag : utc{r3v3rsing_1s_fUn}
+
+I hope it wasn't that hard for a teaser ctf :) 
